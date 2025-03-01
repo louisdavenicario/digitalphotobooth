@@ -28,13 +28,18 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             stream = await navigator.mediaDevices.getUserMedia({
                 video: { 
-                    width: { ideal: 720 },
-                    height: { ideal: 960 },
+                    width: { ideal: 750 },
+                    height: { ideal: 1000 },
                     aspectRatio: 3 / 4,
                     facingMode: "user"
                 }
             });
             video.srcObject = stream;
+
+            //force proper orientation
+            video.onloadedmetadata = () =>{
+                video.style.transform = "rotate(0deg) scaleX(-1)";
+            }
         } catch (error) {
             alert("Camera access denied!");
         }

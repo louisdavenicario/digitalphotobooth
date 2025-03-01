@@ -8,7 +8,11 @@ body {
 
 #camera {
     width: 100%;
-    max-width: 350px;
+    max-width: 383px;
+    height: 512px;
+    object-fit: cover;
+    object-position: center;
+    transform: scaleX(-1);
     aspect-ratio: 9 / 16; /* Portrait ratio */
     border: 3px solid black;
 }
