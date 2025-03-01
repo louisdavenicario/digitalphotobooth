@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let capturedImages = [];
     let captureCount = 0;
 
+    // Frame size based on user's frame (383 x 2048 px)
     const FRAME_WIDTH = 383;
     const FRAME_HEIGHT = 2048;
 
@@ -27,12 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function startCamera() {
         try {
             stream = await navigator.mediaDevices.getUserMedia({
-                video: { 
-                    width: { ideal: 720 },
-                    height: { ideal: 1280 },
-                    aspectRatio: 9 / 16, 
-                    facingMode: "user"
-                }
+                video: { aspectRatio: 9 / 16 }
             });
             video.srcObject = stream;
         } catch (error) {
@@ -42,15 +38,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Capture 4 photos with a 3-second countdown before each capture
     shutterBtn.addEventListener("click", () => {
-        shutterBtn.disabled = true;
+        shutterBtn.disabled = true; // Disable button during capture
         captureCount = 0;
         capturedImages = [];
         photoStrip.innerHTML = "";
 
-        captureNextPhoto();
+        captureNextPhoto(); // Start capturing with countdown
     });
 
-    // Previous working countdown logic
+    // Function to show countdown and then capture each photo
     function captureNextPhoto() {
         if (captureCount < 4) {
             shutterBtn.innerText = `📸 Capturing in 3...`;
@@ -62,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         capturePhoto();
                         captureCount++;
                         if (captureCount < 4) {
-                            captureNextPhoto();
+                            captureNextPhoto(); // Repeat for the next photo
                         } else {
                             setTimeout(() => showPrintPage(), 1000);
                         }
@@ -72,17 +68,31 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Capture a single photo from the video stream (with mirror correction)
+    // Capture a single photo from the video stream
     function capturePhoto() {
         const canvas = document.createElement("canvas");
         canvas.width = FRAME_WIDTH;
-        canvas.height = FRAME_HEIGHT / 4;
+        canvas.height = FRAME_HEIGHT / 4; // Divide frame height into 4 equal sections
         const ctx = canvas.getContext("2d");
 
-        ctx.save();
-        ctx.scale(-1, 1); // Fix mirrored image
-        ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
-        ctx.restore();
+        // Center the captured image in the frame
+        const videoAspectRatio = video.videoWidth / video.videoHeight;
+        const canvasAspectRatio = canvas.width / canvas.height;
+
+        let sx, sy, sw, sh;
+        if (videoAspectRatio > canvasAspectRatio) {
+            sw = video.videoHeight * canvasAspectRatio;
+            sh = video.videoHeight;
+            sx = (video.videoWidth - sw) / 2;
+            sy = 0;
+        } else {
+            sw = video.videoWidth;
+            sh = video.videoWidth / canvasAspectRatio;
+            sx = 0;
+            sy = (video.videoHeight - sh) / 2;
+        }
+
+        ctx.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
 
         const img = new Image();
         img.src = canvas.toDataURL("image/png");
@@ -99,7 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
 
-        ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9) sepia(0.1)";
+        // Apply vintage black-and-white filter
+        ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9)";
 
         capturedImages.forEach((imgSrc, index) => {
             const img = new Image();
@@ -108,22 +119,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 ctx.drawImage(img, 0, index * (FRAME_HEIGHT / 4), FRAME_WIDTH, FRAME_HEIGHT / 4);
                 
                 if (index === 3) {
+                    // Reset filter for the frame
                     ctx.filter = "none";
 
-                    const frame = new Image();
-                    frame.src = "frame.png";  
+                    // Add the custom frame
+                    const frame = new Image(); 
                     frame.onload = () => {
                         ctx.drawImage(frame, 0, 0, finalCanvas.width, finalCanvas.height);
 
-                        ctx.globalAlpha = 0.1;
-                        for (let i = 0; i < finalCanvas.width; i += 2) {
+                        // Apply subtle grain effect for vintage look
+                        ctx.globalAlpha = 0.1; // Reduce opacity for a softer effect
+                        for (let i = 0; i < finalCanvas.width; i += 2) { // Smaller grain pattern
                             for (let j = 0; j < finalCanvas.height; j += 2) {
-                                const gray = Math.random() * 200 + 30;
-                                ctx.fillStyle = `rgb(${gray},${gray},${gray})`;
-                                ctx.fillRect(i, j, 2, 2);
+                            const gray = Math.random() * 200 + 30; // Keep gray range balanced
+                            ctx.fillStyle = `rgb(${gray},${gray},${gray})`;
+                            ctx.fillRect(i, j, 2, 2); // Smaller noise dots
                             }
                         }
-                        ctx.globalAlpha = 1;
+                        ctx.globalAlpha = 1; // Reset opacity
+
                     };
                 }
             };
@@ -143,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
         printPage.classList.add("d-none");
         cameraPage.classList.remove("d-none");
         photoStrip.innerHTML = "";
-        shutterBtn.disabled = false;
+        shutterBtn.disabled = false; // Re-enable shutter button
         shutterBtn.innerText = "📸 Capture";
     });
 });
