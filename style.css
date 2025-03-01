@@ -6,25 +6,71 @@ body {
     text-align: center;
 }
 
-#camera {
+/* Welcome Screen */
+#welcome-screen {
+    position: fixed;
     width: 100%;
-    max-width: 400px;
-    aspect-ratio: 9 / 16; /* Portrait ratio */
-    border: 3px solid black;
+    height: 100vh;
+    background: #333;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
+.hidden {
+    display: none;
+}
+
+/* Camera Preview */
 .camera-container {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
+}
+
+#camera {
+    width: 100%;
+    max-width: 383px; /* Match frame width */
+    aspect-ratio: 9 / 16; /* Force portrait ratio */
+    object-fit: cover; /* Prevent stretching */
+    border: 3px solid black;
+    transform: rotate(0deg);
+}
+
+/* Photo Strip */
+#photo-strip {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
 }
 
 #photo-strip img {
     width: 80px;
     height: 120px;
     border: 2px solid black;
-    margin: 5px;
 }
 
+/* Buttons */
+button {
+    padding: 10px 15px;
+    margin-top: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Final Print Display */
 .frame-container {
     display: flex;
     justify-content: center;
@@ -32,13 +78,8 @@ body {
 }
 
 #final-image {
-    width: 100%; /* Make it responsive */
-    max-width: 200px; /* Adjust to fit nicely on screen */
+    width: 100%; /* Responsive */
+    max-width: 200px; /* Display smaller version */
     height: auto;
     border: 5px solid black;
-}
-
-
-.hidden {
-    display: none;
 }

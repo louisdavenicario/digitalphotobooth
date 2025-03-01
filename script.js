@@ -28,7 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
     async function startCamera() {
         try {
             stream = await navigator.mediaDevices.getUserMedia({
-                video: { aspectRatio: 9 / 16 }
+                video: { 
+                    aspectRatio: 9 / 16, 
+                    facingMode: "user" // Ensures front camera for selfies
+                }
             });
             video.srcObject = stream;
         } catch (error) {
@@ -110,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.height = FRAME_HEIGHT;
 
         // Apply vintage black-and-white filter
-        ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9)";
+        ctx.filter = "grayscale(0.8) contrast(1.3) brightness(1.1) sepia(0.5)";
 
         capturedImages.forEach((imgSrc, index) => {
             const img = new Image();
@@ -128,13 +131,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     frame.onload = () => {
                         ctx.drawImage(frame, 0, 0, finalCanvas.width, finalCanvas.height);
 
-                        // Apply subtle grain effect for vintage look
-                        ctx.globalAlpha = 0.1; // Reduce opacity for a softer effect
-                        for (let i = 0; i < finalCanvas.width; i += 2) { // Smaller grain pattern
+                        // Apply subtle grain effect
+                        ctx.globalAlpha = 0.1; // Softer effect
+                        for (let i = 0; i < finalCanvas.width; i += 2) {
                             for (let j = 0; j < finalCanvas.height; j += 2) {
-                                const gray = Math.random() * 200 + 30; // Keep gray range balanced
+                                const gray = Math.random() * 200 + 30;
                                 ctx.fillStyle = `rgb(${gray},${gray},${gray})`;
-                                ctx.fillRect(i, j, 2, 2); // Smaller noise dots
+                                ctx.fillRect(i, j, 2, 2);
                             }
                         }
                         ctx.globalAlpha = 1; // Reset opacity
@@ -157,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
         printPage.classList.add("d-none");
         cameraPage.classList.remove("d-none");
         photoStrip.innerHTML = "";
-        shutterBtn.disabled = false; // Re-enable shutter button
+        shutterBtn.disabled = false;
         shutterBtn.innerText = "📸 Capture";
     });
 });
