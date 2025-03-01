@@ -104,13 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
     function showPrintPage() {
         cameraPage.classList.add("d-none");
         printPage.classList.remove("d-none");
-
+ 
         const ctx = finalCanvas.getContext("2d");
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
 
         // Apply vintage black-and-white filter
-        ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9)";
+        ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9) sepia(0.1)";
 
         capturedImages.forEach((imgSrc, index) => {
             const img = new Image();
@@ -127,16 +127,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     frame.onload = () => {
                         ctx.drawImage(frame, 0, 0, finalCanvas.width, finalCanvas.height);
 
-                        // Apply subtle grain effect for vintage look
+                        // Apply subtle grain effect directly on images
                         ctx.globalAlpha = 0.1; // Reduce opacity for a softer effect
                         for (let i = 0; i < finalCanvas.width; i += 2) { // Smaller grain pattern
                             for (let j = 0; j < finalCanvas.height; j += 2) {
-                            const gray = Math.random() * 200 + 30; // Keep gray range balanced
+                                const gray = Math.random() * 200 + 30; // Keep gray range balanced
                             ctx.fillStyle = `rgb(${gray},${gray},${gray})`;
                             ctx.fillRect(i, j, 2, 2); // Smaller noise dots
                             }
                         }
                         ctx.globalAlpha = 1; // Reset opacity
+                    }
 
                     };
                 }
