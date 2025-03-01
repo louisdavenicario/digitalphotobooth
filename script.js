@@ -28,6 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             stream = await navigator.mediaDevices.getUserMedia({
                 video: { 
+                    width: { ideal: 720 },
+                    height: { ideal: 1280 },
                     aspectRatio: 9 / 16, 
                     facingMode: "user"
                 }
@@ -97,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
 
-        ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9) sepia(0.2)";
+        ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9) sepia(0.1)";
 
         capturedImages.forEach((imgSrc, index) => {
             const img = new Image();

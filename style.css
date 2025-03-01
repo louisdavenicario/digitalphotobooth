@@ -37,6 +37,7 @@ body {
     height: auto;
     aspect-ratio: 9 / 16; /* Force portrait ratio */
     object-fit: cover; /* show full field of view */
+    object-position: center;
     transform: scale(1.2);
     transform: scaleX(-1);
     border: 3px solid black;
