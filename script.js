@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.height = FRAME_HEIGHT;
 
         // Apply vintage black-and-white filter
-        ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9) sepia(0.1)";
+        ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9)";
 
         capturedImages.forEach((imgSrc, index) => {
             const img = new Image();
@@ -135,8 +135,8 @@ document.addEventListener("DOMContentLoaded", () => {
                             const gray = Math.random() * 200 + 30; // Keep gray range balanced
                             ctx.fillStyle = `rgb(${gray},${gray},${gray})`;
                             ctx.fillRect(i, j, 2, 2); // Smaller noise dots
-                            }
                         }
+                    }
                         ctx.globalAlpha = 1; // Reset opacity
 
                     };
