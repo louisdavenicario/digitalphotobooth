@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let capturedImages = [];
     let captureCount = 0;
 
-    // Frame size based on user's frame (383 x 2048 px)
     const FRAME_WIDTH = 383;
     const FRAME_HEIGHT = 2048;
 
@@ -38,15 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Capture 4 photos with a 3-second countdown before each capture
     shutterBtn.addEventListener("click", () => {
-        shutterBtn.disabled = true; // Disable button during capture
+        shutterBtn.disabled = true;
         captureCount = 0;
         capturedImages = [];
         photoStrip.innerHTML = "";
 
-        captureNextPhoto(); // Start capturing with countdown
+        captureNextPhoto();
     });
 
-    // Function to show countdown and then capture each photo
+    // Countdown before each photo capture
     function captureNextPhoto() {
         if (captureCount < 4) {
             shutterBtn.innerText = `📸 Capturing in 3...`;
@@ -58,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         capturePhoto();
                         captureCount++;
                         if (captureCount < 4) {
-                            captureNextPhoto(); // Repeat for the next photo
+                            captureNextPhoto();
                         } else {
                             setTimeout(() => showPrintPage(), 1000);
                         }
@@ -72,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function capturePhoto() {
         const canvas = document.createElement("canvas");
         canvas.width = FRAME_WIDTH;
-        canvas.height = FRAME_HEIGHT / 4; // Divide frame height into 4 equal sections
+        canvas.height = FRAME_HEIGHT / 4;
         const ctx = canvas.getContext("2d");
 
         // Center the captured image in the frame
@@ -105,11 +104,16 @@ document.addEventListener("DOMContentLoaded", () => {
         cameraPage.classList.add("d-none");
         printPage.classList.remove("d-none");
 
+        // Show "Processing..." message before applying filter and grain
+        const processingMessage = document.createElement("p");
+        processingMessage.innerText = "Processing...";
+        processingMessage.id = "processing-message";
+        printPage.appendChild(processingMessage);
+
         const ctx = finalCanvas.getContext("2d");
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
 
-        // Apply vintage black-and-white filter
         ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9)";
 
         capturedImages.forEach((imgSrc, index) => {
@@ -119,27 +123,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 ctx.drawImage(img, 0, index * (FRAME_HEIGHT / 4), FRAME_WIDTH, FRAME_HEIGHT / 4);
                 
                 if (index === 3) {
-                    // Reset filter for the frame
                     ctx.filter = "none";
 
-                    // Add the custom frame
-                    const frame = new Image();
-                    frame.src = "frame.png";  
-                    frame.onload = () => {
-                        ctx.drawImage(frame, 0, 0, finalCanvas.width, finalCanvas.height);
-
-                        // Apply subtle grain effect for vintage look
-                        ctx.globalAlpha = 0.1; // Reduce opacity for a softer effect
-                        for (let i = 0; i < finalCanvas.width; i += 2) { // Smaller grain pattern
-                            for (let j = 0; j < finalCanvas.height; j += 2) {
-                            const gray = Math.random() * 200 + 30; // Keep gray range balanced
+                    // Apply subtle grain effect directly on images
+                    ctx.globalAlpha = 0.1;
+                    for (let i = 0; i < finalCanvas.width; i += 2) {
+                        for (let j = 0; j < finalCanvas.height; j += 2) {
+                            const gray = Math.random() * 200 + 30;
                             ctx.fillStyle = `rgb(${gray},${gray},${gray})`;
-                            ctx.fillRect(i, j, 2, 2); // Smaller noise dots
+                            ctx.fillRect(i, j, 2, 2);
                         }
                     }
-                        ctx.globalAlpha = 1; // Reset opacity
+                    ctx.globalAlpha = 1;
 
-                    };
+                    // Remove "Processing..." message after rendering
+                    setTimeout(() => {
+                        const processingMsg = document.getElementById("processing-message");
+                        if (processingMsg) processingMsg.remove();
+                        downloadBtn.classList.remove("d-none"); // Show download button
+                    }, 500);
                 }
             };
         });
@@ -158,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
         printPage.classList.add("d-none");
         cameraPage.classList.remove("d-none");
         photoStrip.innerHTML = "";
-        shutterBtn.disabled = false; // Re-enable shutter button
+        shutterBtn.disabled = false;
         shutterBtn.innerText = "📸 Capture";
     });
 });

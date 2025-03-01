@@ -7,6 +7,7 @@ body {
 }
 
 #camera {
+    height: 100%;
     width: 100%;
     max-width: 400px;
     aspect-ratio: 9 / 16; /* Portrait ratio */
