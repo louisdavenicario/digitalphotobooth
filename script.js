@@ -29,7 +29,13 @@ document.addEventListener("DOMContentLoaded", () => {
             stream = await navigator.mediaDevices.getUserMedia({
                 video: { aspectRatio: 9 / 16 }
             });
-            video.srcObject = stream;
+            video.onloadedmetadata = () => {
+                if (video.videoWidth > video.videoHeight) {
+                    video.style.transform = "rotate(90deg) scaleX(-1)"; // Rotate to portrait
+                } else {
+                    video.style.transform = "rotate(0deg) scaleX(-1)"; // Keep normal
+                }
+            };            
         } catch (error) {
             alert("Camera access denied!");
         }
