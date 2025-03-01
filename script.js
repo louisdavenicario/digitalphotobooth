@@ -27,7 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
     async function startCamera() {
         try {
             stream = await navigator.mediaDevices.getUserMedia({
-                video: { aspectRatio: 9 / 16 }
+                video: { 
+                    width: { ideal: 720 },
+                    height: { ideal: 960 },
+                    aspectRatio: 3 / 4,
+                    facingMode: "user"
+                }
             });
             video.srcObject = stream;
         } catch (error) {
@@ -116,16 +121,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9)";
 
+        let imagesLoaded = 0;
+
         capturedImages.forEach((imgSrc, index) => {
             const img = new Image();
             img.src = imgSrc;
             img.onload = () => {
                 ctx.drawImage(img, 0, index * (FRAME_HEIGHT / 4), FRAME_WIDTH, FRAME_HEIGHT / 4);
-                
-                if (index === 3) {
+                imagesLoaded++;
+
+                // Once all images are loaded, apply final effects
+                if (imagesLoaded === 4) {
                     ctx.filter = "none";
 
-                    // Apply subtle grain effect directly on images
+                    // Apply subtle grain effect
                     ctx.globalAlpha = 0.1;
                     for (let i = 0; i < finalCanvas.width; i += 2) {
                         for (let j = 0; j < finalCanvas.height; j += 2) {
@@ -136,18 +145,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                     ctx.globalAlpha = 1;
 
-                    // ADD FRAME AFTER FILTERS AND GRAIN
+                    // ✅ ADD FRAME AFTER FILTERS AND GRAIN
                     const frame = new Image();
                     frame.src = "frame.png";
-                        frame.onload = () => {
+                    frame.onload = () => {
                         ctx.drawImage(frame, 0, 0, finalCanvas.width, finalCanvas.height);
-            
-                    // Remove "Processing..." message after rendering
-                    setTimeout(() => {
-                        const processingMsg = document.getElementById("processing-message");
-                        if (processingMsg) processingMsg.remove();
-                        downloadBtn.classList.remove("d-none"); // Show download button
-                    }, 500);
+
+                        // Remove "Processing..." message after rendering
+                        setTimeout(() => {
+                            const processingMsg = document.getElementById("processing-message");
+                            if (processingMsg) processingMsg.remove();
+                            downloadBtn.classList.remove("d-none"); // Show download button
+                        }, 500);
+                    };
                 }
             };
         });
