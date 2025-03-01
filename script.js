@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let capturedImages = [];
     let captureCount = 0;
 
-    // Frame size based on user's frame (383 x 2048 px)
     const FRAME_WIDTH = 383;
     const FRAME_HEIGHT = 2048;
 
@@ -29,10 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             stream = await navigator.mediaDevices.getUserMedia({
                 video: { 
-                    width: { ideal: 1280}, //capture higher resolution
-                    height: { ideal: 1920}, //maintain portrait ratio
-                    facingMode: "user", // Ensures front camera for selfies
-                    zoom: 1 //ensure no artificial zoom
+                    aspectRatio: 9 / 16, 
+                    facingMode: "user"
                 }
             });
             video.srcObject = stream;
@@ -43,15 +40,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Capture 4 photos with a 3-second countdown before each capture
     shutterBtn.addEventListener("click", () => {
-        shutterBtn.disabled = true; // Disable button during capture
+        shutterBtn.disabled = true;
         captureCount = 0;
         capturedImages = [];
         photoStrip.innerHTML = "";
 
-        captureNextPhoto(); // Start capturing with countdown
+        captureNextPhoto();
     });
 
-    // Function to show countdown and then capture each photo
+    // Previous working countdown logic
     function captureNextPhoto() {
         if (captureCount < 4) {
             shutterBtn.innerText = `📸 Capturing in 3...`;
@@ -63,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         capturePhoto();
                         captureCount++;
                         if (captureCount < 4) {
-                            captureNextPhoto(); // Repeat for the next photo
+                            captureNextPhoto();
                         } else {
                             setTimeout(() => showPrintPage(), 1000);
                         }
@@ -73,33 +70,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Capture a single photo from the video stream
+    // Capture a single photo from the video stream (with mirror correction)
     function capturePhoto() {
         const canvas = document.createElement("canvas");
         canvas.width = FRAME_WIDTH;
-        canvas.height = FRAME_HEIGHT / 4; // Divide frame height into 4 equal sections
+        canvas.height = FRAME_HEIGHT / 4;
         const ctx = canvas.getContext("2d");
 
-        // Center the captured image in the frame
-        const videoAspectRatio = video.videoWidth / video.videoHeight;
-        const canvasAspectRatio = canvas.width / canvas.height;
-
-        let sx, sy, sw, sh;
-        if (videoAspectRatio > canvasAspectRatio) {
-            sw = video.videoHeight * canvasAspectRatio;
-            sh = video.videoHeight;
-            sx = (video.videoWidth - sw) / 2;
-            sy = 0;
-        } else {
-            sw = video.videoWidth;
-            sh = video.videoWidth / canvasAspectRatio;
-            sx = 0;
-            sy = (video.videoHeight - sh) / 2;
-        }
-
         ctx.save();
-        ctx.scale(-1.1);
-        ctx.drawImage(video, sx, sy + 50, sw, sh -100, 0, 0, canvas.width, canvas.height);
+        ctx.scale(-1, 1); // Fix mirrored image
+        ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
         ctx.restore();
 
         const img = new Image();
@@ -117,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
 
-        // Apply vintage black-and-white filter
         ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9) sepia(0.2)";
 
         capturedImages.forEach((imgSrc, index) => {
@@ -127,17 +106,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 ctx.drawImage(img, 0, index * (FRAME_HEIGHT / 4), FRAME_WIDTH, FRAME_HEIGHT / 4);
                 
                 if (index === 3) {
-                    // Reset filter for the frame
                     ctx.filter = "none";
 
-                    // Add the custom frame
                     const frame = new Image();
                     frame.src = "frame.png";  
                     frame.onload = () => {
                         ctx.drawImage(frame, 0, 0, finalCanvas.width, finalCanvas.height);
 
-                        // Apply subtle grain effect
-                        ctx.globalAlpha = 0.1; // Softer effect
+                        ctx.globalAlpha = 0.1;
                         for (let i = 0; i < finalCanvas.width; i += 2) {
                             for (let j = 0; j < finalCanvas.height; j += 2) {
                                 const gray = Math.random() * 200 + 30;
@@ -145,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 ctx.fillRect(i, j, 2, 2);
                             }
                         }
-                        ctx.globalAlpha = 1; // Reset opacity
+                        ctx.globalAlpha = 1;
                     };
                 }
             };
