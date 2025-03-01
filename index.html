@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photobooth</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="d-flex flex-column justify-content-center align-items-center vh-100 text-center bg-dark text-white">
+        <h1 class="mb-3">Welcome to the Online Photobooth</h1>
+        <p>Tap anywhere to start</p>
+    </div>
+
+    <!-- Camera Page -->
+    <div id="camera-page" class="container text-center d-none">
+        <h3 class="mt-3">Tap the shutter button once to capture 4 photos</h3>
+        <div class="camera-container">
+            <video id="camera" autoplay class="rounded shadow"></video>
+        </div>
+        <button id="shutter-btn" class="btn btn-danger mt-3">📸 Capture</button>
+        <div id="photo-strip" class="d-flex justify-content-center mt-3"></div>
+    </div>
+
+    <!-- Print & Download Page -->
+    <div id="print-page" class="container text-center d-none">
+        <h3 class="mt-3">Your Photobooth Print</h3>
+    
+        <!-- Added a wrapper to center and scale the image -->
+        <div class="frame-container">
+            <canvas id="final-image"></canvas>
+        </div>
+
+        <button id="download-btn" class="btn btn-primary mt-3">Download</button>
+        <button id="back-btn" class="btn btn-secondary mt-3">Back to Camera</button>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

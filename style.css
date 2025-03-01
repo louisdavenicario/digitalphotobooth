@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Rockwell:wght@400;700&display=swap');
+
+body {
+    font-family: 'Rockwell', sans-serif;
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+#camera {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 9 / 16; /* Portrait ratio */
+    border: 3px solid black;
+}
+
+.camera-container {
+    display: flex;
+    justify-content: center;
+}
+
+#photo-strip img {
+    width: 80px;
+    height: 120px;
+    border: 2px solid black;
+    margin: 5px;
+}
+
+.frame-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#final-image {
+    width: 100%; /* Make it responsive */
+    max-width: 200px; /* Adjust to fit nicely on screen */
+    height: auto;
+    border: 5px solid black;
+}
+
+
+.hidden {
+    display: none;
+}
