@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function showPrintPage() {
         cameraPage.classList.add("d-none");
         printPage.classList.remove("d-none");
- 
+
         const ctx = finalCanvas.getContext("2d");
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
@@ -123,21 +123,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     ctx.filter = "none";
 
                     // Add the custom frame
-                    const frame = new Image(); 
+                    const frame = new Image();
+                    frame.src = "frame.png";  
                     frame.onload = () => {
                         ctx.drawImage(frame, 0, 0, finalCanvas.width, finalCanvas.height);
 
-                        // Apply subtle grain effect directly on images
+                        // Apply subtle grain effect for vintage look
                         ctx.globalAlpha = 0.1; // Reduce opacity for a softer effect
                         for (let i = 0; i < finalCanvas.width; i += 2) { // Smaller grain pattern
                             for (let j = 0; j < finalCanvas.height; j += 2) {
-                                const gray = Math.random() * 200 + 30; // Keep gray range balanced
+                            const gray = Math.random() * 200 + 30; // Keep gray range balanced
                             ctx.fillStyle = `rgb(${gray},${gray},${gray})`;
                             ctx.fillRect(i, j, 2, 2); // Smaller noise dots
                             }
                         }
                         ctx.globalAlpha = 1; // Reset opacity
-                    }
 
                     };
                 }
