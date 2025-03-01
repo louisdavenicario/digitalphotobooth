@@ -97,7 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
             sy = (video.videoHeight - sh) / 2;
         }
 
-        ctx.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+        ctx.save();
+        ctx.scale(-1.1);
+        ctx.drawImage(video, sx, sy + 50, sw, sh -100, 0, 0, canvas.width, canvas.height);
+        ctx.restore();
 
         const img = new Image();
         img.src = canvas.toDataURL("image/png");
@@ -115,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.height = FRAME_HEIGHT;
 
         // Apply vintage black-and-white filter
-        ctx.filter = "grayscale(1) contrast(1.4) brightness(1.1) sepia(0.3)";
+        ctx.filter = "grayscale(1) contrast(1.4) brightness(0.9) sepia(0.2)";
 
         capturedImages.forEach((imgSrc, index) => {
             const img = new Image();

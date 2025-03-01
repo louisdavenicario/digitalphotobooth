@@ -34,8 +34,11 @@ body {
 #camera {
     width: 100%;
     max-width: 383px; /* Match frame width */
+    height: auto;
     aspect-ratio: 9 / 16; /* Force portrait ratio */
-    object-fit: contain; /* show full field of view */
+    object-fit: cover; /* show full field of view */
+    transform: scale(1.2);
+    transform: scaleX(-1);
     border: 3px solid black;
     transform: rotate(0deg);
 }
