@@ -35,7 +35,7 @@ body {
     width: 100%;
     max-width: 383px; /* Match frame width */
     aspect-ratio: 9 / 16; /* Force portrait ratio */
-    object-fit: cover; /* Prevent stretching */
+    object-fit: contain; /* show full field of view */
     border: 3px solid black;
     transform: rotate(0deg);
 }

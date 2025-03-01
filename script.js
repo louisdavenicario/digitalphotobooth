@@ -29,8 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             stream = await navigator.mediaDevices.getUserMedia({
                 video: { 
-                    aspectRatio: 9 / 16, 
+                    width: { ideal: 1280}, //capture higher resolution
+                    height: { ideal: 1920}, //maintain portrait ratio
                     facingMode: "user" // Ensures front camera for selfies
+                    zoom: 1 //ensure no artificial zoom
                 }
             });
             video.srcObject = stream;
@@ -113,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.height = FRAME_HEIGHT;
 
         // Apply vintage black-and-white filter
-        ctx.filter = "grayscale(0.8) contrast(1.3) brightness(1.1) sepia(0.5)";
+        ctx.filter = "grayscale(1) contrast(1.4) brightness(1) sepia(0.3)";
 
         capturedImages.forEach((imgSrc, index) => {
             const img = new Image();
