@@ -29,13 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
             stream = await navigator.mediaDevices.getUserMedia({
                 video: { aspectRatio: 9 / 16 }
             });
-            video.onloadedmetadata = () => {
-                if (video.videoWidth > video.videoHeight) {
-                    video.style.transform = "rotate(90deg) scaleX(-1)"; // Rotate to portrait
-                } else {
-                    video.style.transform = "rotate(0deg) scaleX(-1)"; // Keep normal
-                }
-            };            
+            video.srcObject = stream;
         } catch (error) {
             alert("Camera access denied!");
         }
@@ -142,6 +136,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                     ctx.globalAlpha = 1;
 
+                    // ADD FRAME AFTER FILTERS AND GRAIN
+                    const frame = new Image();
+                    frame.src = "frame.png";
+                        frame.onload = () => {
+                        ctx.drawImage(frame, 0, 0, finalCanvas.width, finalCanvas.height);
+            
                     // Remove "Processing..." message after rendering
                     setTimeout(() => {
                         const processingMsg = document.getElementById("processing-message");
