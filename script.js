@@ -140,15 +140,26 @@ document.addEventListener("DOMContentLoaded", () => {
                     ctx.filter = "none";
 
                     // Apply subtle grain effect
-                    ctx.globalAlpha = 0.07;
+                    ctx.globalAlpha = 0.05;
                     for (let i = 0; i < finalCanvas.width; i += 1) {
-                        for (let j = 0; j < finalCanvas.height; j += 2) {
-                            const gray = Math.random() * 180 + 50;
+                        for (let j = 0; j < finalCanvas.height; j += 1) {
+                            const gray = Math.random() * 150 + 50;
                             ctx.fillStyle = `rgb(${gray},${gray},${gray})`;
                             ctx.fillRect(i, j, 1, 1);
                         }
                     }
                     ctx.globalAlpha = 1;
+
+                    // Add random dust specks (small white/gray dots)
+                    for (let i = 0; i < 50; i++) { // Number of dust specks
+                        let x = Math.random() * finalCanvas.width;
+                        let y = Math.random() * finalCanvas.height;
+                        let size = Math.random() * 4 + 1; // Random speck size
+                        ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.8 + 0.2})`; // White with random opacity
+                        ctx.beginPath();
+                        ctx.arc(x, y, size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
 
                     // ✅ ADD FRAME AFTER FILTERS AND GRAIN
                     const frame = new Image();
