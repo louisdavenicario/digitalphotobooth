@@ -1,15 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=OCR+B&display=swap');
 
-html{
-    zoom: 75%;
-}
-
-@media screen and (max-width: 768px){
-    html{
-        zoom: 75%
-    }
-}
-
 body {
     font-family: "OCR B", monospace;    
     background-color: #f8f8f8;
