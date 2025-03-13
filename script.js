@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
 
-        ctx.filter = "grayscale(1) contrast(1.4) brightness(1.1) sepia(0.1) blur(0.1px)";
+        ctx.filter = "grayscale(1) contrast(1.4) brightness(1.1) sepia(0.1)";
 
         let imagesLoaded = 0;
 
@@ -140,16 +140,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     ctx.filter = "none";
 
                     // Apply subtle grain effect
-                    ctx.globalAlpha = 0.09;
-                    for (let i = 0; i < finalCanvas.width; i += 3) {
-                        for (let j = 0; j < finalCanvas.height; j += 3) {
-                            const gray = Math.random() * 200 + 55;
+                    ctx.globalAlpha = 0.1;
+                    for (let i = 0; i < finalCanvas.width; i += 2) {
+                        for (let j = 0; j < finalCanvas.height; j += 2) {
+                            const gray = Math.random() * 200 + 30;
                             ctx.fillStyle = `rgb(${gray},${gray},${gray})`;
-                            ctx.fillRect(i, j, 1.5, 1.5);
+                            ctx.fillRect(i, j, 2, 2);
                         }
                     }
                     ctx.globalAlpha = 1;
-
 
                     // ✅ ADD FRAME AFTER FILTERS AND GRAIN
                     const frame = new Image();
