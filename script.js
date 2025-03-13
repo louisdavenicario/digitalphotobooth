@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
 
-        ctx.filter = "grayscale(1) contrast(1.4) brightness(1.1) sepia(0.1) blur(1.5px)";
+        ctx.filter = "grayscale(1) contrast(1.4) brightness(1.1) sepia(0.1) blur(0.3px)";
 
         let imagesLoaded = 0;
 
