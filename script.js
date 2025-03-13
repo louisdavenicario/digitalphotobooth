@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
 
-        ctx.filter = "grayscale(1) contrast(1.4) brightness(1.1) sepia(0.1) blur(0.3px)";
+        ctx.filter = "grayscale(1) contrast(1.4) brightness(1.1) sepia(0.1) blur(0.1px)";
 
         let imagesLoaded = 0;
 
@@ -140,12 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     ctx.filter = "none";
 
                     // Apply subtle grain effect
-                    ctx.globalAlpha = 0.1;
-                    for (let i = 0; i < finalCanvas.width; i += 2) {
+                    ctx.globalAlpha = 0.07;
+                    for (let i = 0; i < finalCanvas.width; i += 1) {
                         for (let j = 0; j < finalCanvas.height; j += 2) {
-                            const gray = Math.random() * 200 + 30;
+                            const gray = Math.random() * 180 + 50;
                             ctx.fillStyle = `rgb(${gray},${gray},${gray})`;
-                            ctx.fillRect(i, j, 2, 2);
+                            ctx.fillRect(i, j, 1, 1);
                         }
                     }
                     ctx.globalAlpha = 1;
