@@ -58,11 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Countdown before each photo capture
     function captureNextPhoto() {
         if (captureCount < 4) {
-            shutterBtn.innerText = `📸 Capturing in 3...`;
+            shutterBtn.innerText = `Capturing in 3...`;
             setTimeout(() => {
-                shutterBtn.innerText = `📸 Capturing in 2...`;
+                shutterBtn.innerText = `Capturing in 2...`;
                 setTimeout(() => {
-                    shutterBtn.innerText = `📸 Capturing in 1...`;
+                    shutterBtn.innerText = `Capturing in 1...`;
                     setTimeout(() => {
                         capturePhoto();
                         captureCount++;
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
 
-        ctx.filter = "grayscale(1) contrast(1.4) brightness(1.1) sepia(0.1)";
+        ctx.filter = "grayscale(1) contrast(1.4) brightness(1.1) sepia(0.1) blur(1.5px)";
 
         let imagesLoaded = 0;
 
@@ -182,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cameraPage.classList.remove("d-none");
         photoStrip.innerHTML = "";
         shutterBtn.disabled = false;
-        shutterBtn.innerText = "📸 Capture";
+        shutterBtn.innerHTML = '<i class="fa-solid fa-camera fa-2x"></i>';
+
     });
 });
