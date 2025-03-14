@@ -70,7 +70,7 @@ h3 {
 #shutter-btn {
     background: none; /* Remove background */
     border: none; /* Remove border */
-    font-size: 1rem; /* Keep the font size */
+    font-size: 20px; /* Keep the font size */
     font-weight: bold;
     padding: 15px 15px;
     width: 180px;
@@ -117,15 +117,42 @@ h3 {
     border: 2px solid white !important; /* Matches background */
 }
 
+.camera-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 10px;
+}
 
 .camera-container {
+    width: 80%;
+    max-width: 250px;
+    margin: auto;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
 }
 
+video{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+#photo-strip{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
 #photo-strip img {
-    width: 80px;
-    height: 120px;
+    width: 50px;
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
     border: 2px solid black;
     margin: 5px;
 }
