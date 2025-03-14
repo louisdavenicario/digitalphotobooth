@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         for (let j = 0; j < finalCanvas.height; j += 2) {
                             const gray = Math.random() * 200 + 30;
                             ctx.fillStyle = `rgb(${gray},${gray},${gray})`;
-                            ctx.fillRect(i, j, 1.5, 1.5);
+                            ctx.fillRect(i, j, 1.7, 1.7);
                         }
                     }
                     ctx.globalAlpha = 1;
