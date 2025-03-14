@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             stream = await navigator.mediaDevices.getUserMedia({
                 video: { 
-                    width: { ideal: 480 },
-                    height: { ideal: 640 },
+                    width: { ideal: 1800 },
+                    height: { ideal: 2400 },
                     aspectRatio: 3 / 4,
                     facingMode: "user"
                 }
