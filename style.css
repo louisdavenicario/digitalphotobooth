@@ -4,6 +4,7 @@ body {
     font-family: "OCR B", monospace;    
     background-color: #f8f8f8;
     text-align: center;
+    font-size: 0.9rem;
 }
 
 #welcome-screen {
@@ -23,7 +24,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     color: white;
-    font-size: 18px;
+    font-size: 0.9rem;
 }
 
 
@@ -31,17 +32,19 @@ body {
     color: #f8f8f8;
     font-weight: 500;
     font-size: 48px;
+    font-size: 1.8rem;
 }
 
 #welcome-screen p1 {
     color: #f8f8f8;
     font-weight: 500;
-    font-size: 32px;
+    font-size: 1.2rem;
     padding: 10px 20px; /* Add spacing */
 }
 
 #welcome-screen p2{
-    font-size: 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
     padding-top: 10px;
 }
 
@@ -60,13 +63,14 @@ body {
 h3 {
     margin-top: 50px;
     font-size: 25px; /* Make the text slightly bigger */
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: bold;
 }
 
 #shutter-btn {
     background: none; /* Remove background */
     border: none; /* Remove border */
-    font-size: 16px; /* Keep the font size */
+    font-size: 1rem; /* Keep the font size */
     font-weight: bold;
     padding: 15px 15px;
     width: 180px;
@@ -81,9 +85,9 @@ h3 {
 
 
 #download-btn, #back-btn {
-    font-size: 1.3rem; /* Bigger text */
-    padding: 10px; /* More padding */
-    width: 220px; /* Fixed width for uniformity */
+    font-size: 0.9rem; /* Bigger text */
+    padding: 9px; /* More padding */
+    width: 150px; /* Fixed width for uniformity */
     border-radius: 15px; /* Rounded edges */
     margin: 10px; /* Space between buttons */
 }
@@ -94,6 +98,7 @@ h3 {
     color: black !important;
     border: none;
     font-weight: bold;
+    font-size: 0.9rem;
 }
 
 #download-btn:hover {
@@ -105,6 +110,7 @@ h3 {
     background-color: #f5f5f5;
     color: black;
     font-weight: bold;
+    font-size: 0.9rem;
 }
 
 #back-btn {

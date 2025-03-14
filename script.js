@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             stream = await navigator.mediaDevices.getUserMedia({
                 video: { 
-                    width: { ideal: 750 },
-                    height: { ideal: 1000 },
+                    width: { ideal: 1800 },
+                    height: { ideal: 2400 },
                     aspectRatio: 3 / 4,
                     facingMode: "user"
                 }
@@ -77,17 +77,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Capture a single photo from the video stream
     function capturePhoto() {
         const canvas = document.createElement("canvas");
-        canvas.width = FRAME_WIDTH;
-        canvas.height = FRAME_HEIGHT / 4;
         const ctx = canvas.getContext("2d");
-
-        // Center the captured image in the frame
+    
+        // Ensure the canvas has the correct 3:4 aspect ratio
         const videoAspectRatio = video.videoWidth / video.videoHeight;
-        const canvasAspectRatio = canvas.width / canvas.height;
-
+        const canvasAspectRatio = 3 / 4;
+    
         let sx, sy, sw, sh;
         if (videoAspectRatio > canvasAspectRatio) {
             sw = video.videoHeight * canvasAspectRatio;
@@ -100,14 +97,24 @@ document.addEventListener("DOMContentLoaded", () => {
             sx = 0;
             sy = (video.videoHeight - sh) / 2;
         }
-
+    
+        canvas.width = 300; // Set a fixed width for preview
+        canvas.height = 400; // Keep the 3:4 aspect ratio
+    
         ctx.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
-
+    
+        // Create preview image
         const img = new Image();
         img.src = canvas.toDataURL("image/png");
+    
+        // Apply styling to prevent stretching
+        img.style.width = "auto"; // Maintain original aspect ratio
+        img.style.height = "100px"; // Set a consistent height
+    
         capturedImages.push(img.src);
         photoStrip.appendChild(img);
     }
+    
 
     // Show the final print layout after capturing all photos
     function showPrintPage() {
