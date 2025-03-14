@@ -70,7 +70,7 @@ h3 {
 #shutter-btn {
     background: none; /* Remove background */
     border: none; /* Remove border */
-    font-size: 1rem; /* Keep the font size */
+    font-size: 0.9rem; /* Keep the font size */
     font-weight: bold;
     padding: 15px 15px;
     width: 180px;
