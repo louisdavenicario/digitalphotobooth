@@ -6,7 +6,7 @@ html, body {
     text-align: center;
     font-size: 0.9rem;
     overflow-x: hidden;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 /*#welcome-screen {
@@ -205,6 +205,9 @@ h3 {
     color: #f8f8f8;
     transform: scale(1.05); /* Slight button zoom */
 }
+
+
+
 
 
 .camera-container {
