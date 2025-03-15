@@ -6,6 +6,7 @@ html, body {
     text-align: center;
     font-size: 0.9rem;
     overflow-x: hidden;
+    overflow: hidden;
 }
 
 /*#welcome-screen {
@@ -20,6 +21,7 @@ html, body {
 }*/
 
 #welcome-screen {
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -121,10 +123,10 @@ html, body {
 
 
 #camera {
-    width: 100%;
-    max-width: 230px;
-    height: 320px;
-    object-fit: cover;
+    width: 100% !important;
+    max-width: 230px !important;
+    height: 320px !important;
+    object-fit: cover !important;
     object-position: center;
     transform: scaleX(-1);
     aspect-ratio: 9 / 16; /* Portrait ratio */
