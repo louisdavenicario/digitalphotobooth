@@ -18,6 +18,42 @@ body {
     position: relative;
 }
 
+/* Center the buttons */
+#welcome-screen .buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style for both buttons */
+.about-btn, .how-it-works-btn {
+    background-color: none; /* Gray color */
+    color: #f8f8f8;
+    border: none;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    text-decoration: none; /* Remove underline */
+    width: 100px;
+    text-align: center;
+}
+
+/* Hover effect */
+.about-btn:hover, .how-it-works-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Click effect */
+.about-btn:active, .how-it-works-btn:active {
+    transform: scale(0.95);
+}
+
+
 #welcome-screen footer {
     position: absolute;
     bottom: 10px; /* Adjust as needed */
@@ -25,6 +61,8 @@ body {
     transform: translateX(-50%);
     color: white;
     font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: auto;
 }
 
 
@@ -33,6 +71,7 @@ body {
     font-weight: 500;
     font-size: 48px;
     font-size: 1.8rem;
+    margin: -100px;
 }
 
 #welcome-screen p1 {
@@ -47,6 +86,7 @@ body {
     font-size: 0.9rem;
     padding-top: 10px;
 }
+
 
 #camera {
     width: 100%;
@@ -86,9 +126,9 @@ h3 {
 
 #download-btn, #back-btn {
     font-size: 0.9rem; /* Bigger text */
-    padding: 9px; /* More padding */
+    padding: 9px 10px; /* More padding */
     width: 150px; /* Fixed width for uniformity */
-    border-radius: 15px; /* Rounded edges */
+    border-radius: 50px; /* Rounded edges */
     margin: 10px; /* Space between buttons */
 }
 
@@ -101,10 +141,6 @@ h3 {
     font-size: 0.9rem;
 }
 
-#download-btn:hover {
-    background-color: #0056b3; /* Darker Blue */
-}
-
 /* Back to Camera button */
 #back-btn {
     background-color: #f5f5f5;
@@ -115,6 +151,25 @@ h3 {
 
 #back-btn {
     border: 2px solid white !important; /* Matches background */
+}
+
+.back-home-btn {
+    display: inline-block;
+    background-color: none;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+    font-size: 0.9rem;
+    border: 2px;
+}
+
+.back-home-btn:hover {
+    background-color: #222; /* Darker color for hover effect */
+    color: #f8f8f8;
+    transform: scale(1.05); /* Slight button zoom */
 }
 
 

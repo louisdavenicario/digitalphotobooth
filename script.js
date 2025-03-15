@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cameraPage.classList.remove("d-none");
         startCamera();
     });
+    
 
     // Start the camera with a portrait aspect ratio
     async function startCamera() {
@@ -131,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
 
-        ctx.filter = "grayscale(100%) contrast(140%) brightness(99%) sepia(20%) blur(1px)";
+        ctx.filter = "grayscale(100%) contrast(140%) brightness(99%) sepia(20%) blur(0.9px)";
 
         let imagesLoaded = 0;
 
