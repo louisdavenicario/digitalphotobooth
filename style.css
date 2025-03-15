@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=OCR+B&display=swap');
 
-body {
+html, body {
     font-family: "OCR B", monospace;    
     background-color: #f8f8f8;
     text-align: center;
     font-size: 0.9rem;
+    overflow-x: hidden;
 }
 
-#welcome-screen {
+/*#welcome-screen {
     height: 100vh; /* Full screen height */
     display: flex;
     flex-direction: column;
@@ -16,6 +17,16 @@ body {
     background-color: #222; /* Dark background */
     color: white;
     position: relative;
+}*/
+
+#welcome-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh; /* Ensures full height */
+    text-align: center;
+    padding-bottom: 20px; /* Prevent footer from touching the screen edge */
 }
 
 /* Center the buttons */
@@ -29,10 +40,9 @@ body {
 
 /* Style for both buttons */
 .about-btn, .how-it-works-btn {
-    background-color: none; /* Gray color */
+    background-color: none;
     color: #f8f8f8;
     border: none;
-    padding: 8px 12px;
     font-size: 0.9rem;
     font-weight: 500;
     border-radius: 50px;
@@ -63,14 +73,21 @@ body {
     font-size: 0.9rem;
     font-weight: 500;
     margin-bottom: auto;
+    margin-top: auto;
+    text-align: center;
 }
+
+.about-btn i,
+.how-it-works-btn i {
+    margin-right: 4px; /* Increase spacing if needed */
+}
+
 
 
 #welcome-screen h1{
     color: #f8f8f8;
     font-weight: 500;
-    font-size: 48px;
-    font-size: 1.8rem;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
     margin: -100px;
 }
 
@@ -85,6 +102,21 @@ body {
     font-weight: 500;
     font-size: 0.9rem;
     padding-top: 10px;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Apply the bounce animation to text */
+.bounce-text {
+    display: inline-block;
+    animation: bounce 2.5s infinite ease-in-out;
 }
 
 
