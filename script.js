@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
 
-        ctx.filter = "grayscale(100%) contrast(140%) brightness(99%) sepia(20%) blur(0.9px)";
+        ctx.filter = "grayscale(120%) contrast(150%) brightness(90%) sepia(23%) blur(0.9px)";
 
         let imagesLoaded = 0;
 
@@ -158,23 +158,43 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                     ctx.globalAlpha = 1;
 
-                    // ✅ ADD FRAME AFTER FILTERS AND GRAIN
-                    const frame = new Image();
-                    frame.src = "frame.png";
-                    frame.onload = () => {
-                        ctx.drawImage(frame, 0, 0, finalCanvas.width, finalCanvas.height);
+                    // ✅ ADD DEFAULT FRAME (BLACK)
+                drawFrame("black");
 
-                        // Remove "Processing..." message after rendering
-                        setTimeout(() => {
-                            const processingMsg = document.getElementById("processing-message");
-                            if (processingMsg) processingMsg.remove();
-                            downloadBtn.classList.remove("d-none"); // Show download button
-                        }, 500);
-                    };
-                }
-            };
-        });
-    }
+                // Remove "Processing..." message after rendering
+                setTimeout(() => {
+                    const processingMsg = document.getElementById("processing-message");
+                    if (processingMsg) processingMsg.remove();
+                    downloadBtn.classList.remove("d-none"); // Show download button
+                }, 500);
+            }
+        };
+    });
+}
+
+// Function to draw frame with selected color
+function drawFrame(color) {
+    const ctx = finalCanvas.getContext("2d");
+    const frame = new Image();
+    frame.src = color === "black" ? "frame.png" : "frame2.png"; // Use different frame images
+
+    frame.onload = () => {
+        ctx.drawImage(frame, 0, 0, finalCanvas.width, finalCanvas.height);
+    };
+}
+
+// Toggle frame color when button is clicked
+document.getElementById("toggle-frame-btn").addEventListener("click", () => {
+    const frameBtn = document.getElementById("toggle-frame-btn");
+    const isBlackFrame = frameBtn.classList.contains("btn-dark");
+
+    drawFrame(isBlackFrame ? "white" : "black");
+
+    // Toggle button class & text
+    frameBtn.classList.toggle("btn-dark");
+    frameBtn.classList.toggle("btn-light");
+    frameBtn.innerText = isBlackFrame ? "Change Frame to Black" : "Change Frame to White";
+});
 
     // Download the final photobooth print
     downloadBtn.addEventListener("click", () => {
