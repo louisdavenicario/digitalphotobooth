@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalCanvas.width = FRAME_WIDTH;
         finalCanvas.height = FRAME_HEIGHT;
 
-        ctx.filter = "grayscale(120%) contrast(150%) brightness(90%) sepia(23%) blur(0.9px)";
+        ctx.filter = "grayscale(120%) contrast(140%) brightness(99%) sepia(15%) blur(0.5px)";
 
         let imagesLoaded = 0;
 
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         for (let j = 0; j < finalCanvas.height; j += 2) {
                             const gray = Math.random() * 200 + 30;
                             ctx.fillStyle = `rgb(${gray},${gray},${gray})`;
-                            ctx.fillRect(i, j, 1.7, 1.7);
+                            ctx.fillRect(i, j, 1.6, 1.6);
                         }
                     }
                     ctx.globalAlpha = 1;
@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function drawFrame(color) {
     const ctx = finalCanvas.getContext("2d");
     const frame = new Image();
-    frame.src = color === "black" ? "frame.png" : "frame2.png"; // Use different frame images
+    frame.src = color === "black" ? "blackframe.png" : "whiteframe.png"; // Use different frame images
 
     frame.onload = () => {
         ctx.drawImage(frame, 0, 0, finalCanvas.width, finalCanvas.height);
