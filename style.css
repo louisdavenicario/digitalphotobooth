@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=OCR+B&display=swap');
+
 
 html, body {
-    font-family: "OCR B", monospace;    
+    font-family: "Courier New", Courier, monospace;  
     background-color: #f8f8f8;
     text-align: center;
     font-size: 0.9rem;
